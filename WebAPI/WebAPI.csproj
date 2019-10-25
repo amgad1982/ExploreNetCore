@@ -3,6 +3,11 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.0</TargetFramework>
   </PropertyGroup>
+   <PropertyGroup>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <DocumentationFile>bin\WebAPI.XML</DocumentationFile>
+    <NoWarn>40059,42024,1591</NoWarn>
+  </PropertyGroup>
   <ItemGroup>
   </ItemGroup>
 
