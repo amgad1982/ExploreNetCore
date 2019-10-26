@@ -13,6 +13,9 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using WebAPI.Configurations;
 using WebAPI.Services;
+using System.Reflection;
+using Microsoft.AspNetCore.Authentication.Cookies;
+
 namespace WebAPI {
     public class Startup {
         public Startup (IConfiguration configuration) {
@@ -22,10 +25,20 @@ namespace WebAPI {
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices (IServiceCollection services) {
-            services.AddControllers ();
-            services.AddMediatR (typeof (Startup).Assembly);
-            services.RegisterAsemblyTypeHavingRegistrar<IService> ((s) => { s.RegisterService (services); }, typeof (Startup).Assembly);
+        public void ConfigureServices(IServiceCollection services)
+        {
+            services.AddControllers();
+            services.AddMediatR(typeof(Startup).Assembly);
+            services.RegisterAsemblyTypeHavingRegistrar<IService>((s) => { s.RegisterService(services); }, typeof(Startup).Assembly);
+            //     services.RegisterAsemblyTypes(new List<Tuple<Type, Assembly, Action<dynamic>>>{
+            //         Tuple.Create<Type, Assembly, Action<dynamic>>(typeof(IService),typeof(Startup).Assembly,(s)=>{s.RegisterService(services);})
+            // });
+
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(ops =>
+                {
+                    //ops.lo
+                });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
